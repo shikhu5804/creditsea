@@ -78,3 +78,66 @@ startxref
 
   return targetDir;
 }
+
+export function createPersonalizedPdf(employeeName: string, monthlySalary: number, filename: string): string {
+  const targetDir = ensureUploadsDirectory();
+  const filePath = path.join(targetDir, filename);
+
+  const grossSalary = monthlySalary || 75000;
+  const deductions = Math.round(grossSalary * 0.08);
+  const netPay = grossSalary - deductions;
+
+  const streamContent = `BT
+/F1 24 Tf
+50 700 Td
+(CreditSea Official Salary Slip) Tj
+0 -40 Td
+/F1 14 Tf
+(Employee Name: ${employeeName}) Tj
+0 -25 Td
+(Gross Salary: Rs ${grossSalary.toLocaleString('en-IN')}) Tj
+0 -25 Td
+(Deductions: Rs ${deductions.toLocaleString('en-IN')}) Tj
+0 -25 Td
+(Net Pay: Rs ${netPay.toLocaleString('en-IN')}) Tj
+ET`;
+
+  const streamLength = Buffer.byteLength(streamContent);
+
+  const pdfRaw = `%PDF-1.4
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [3 0 R] /Count 1 >>
+endobj
+3 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Contents 4 0 R /Resources << /Font << /F1 5 0 R >> >> >>
+endobj
+4 0 obj
+<< /Length ${streamLength} >>
+stream
+${streamContent}
+endstream
+endobj
+5 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+xref
+0 6
+0000000000 65535 f 
+0000000009 00000 n 
+0000000058 00000 n 
+0000000115 00000 n 
+0000000280 00000 n 
+0000000506 00000 n 
+trailer
+<< /Size 6 /Root 1 0 R >>
+startxref
+575
+%%EOF`;
+
+  fs.writeFileSync(filePath, pdfRaw.trim());
+  return `/uploads/${filename}`;
+}
+

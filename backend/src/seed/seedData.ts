@@ -5,6 +5,7 @@ import User from '../models/User';
 import Loan from '../models/Loan';
 import Payment from '../models/Payment';
 import { calculateLoanMath } from '../services/breService';
+import { createPersonalizedPdf } from '../utils/initUploads';
 
 dotenv.config();
 
@@ -123,7 +124,8 @@ export async function runSeed() {
 
   console.log('✅ Created Accounts for Admin, Sales, Sanction, Disbursement, Collection, and Borrower.');
 
-  // Create Sample Loans
+  // Create Sample Loans with Personalized Salary Slip PDFs
+  const priyaPdfUrl = createPersonalizedPdf('Priya Sharma', 60000, 'Priya_Salary_Slip_July.pdf');
   const math1 = calculateLoanMath(150000, 180, 12);
   const loan1 = new Loan({
     borrowerId: createdUsers['priya@example.com']._id,
@@ -135,11 +137,12 @@ export async function runSeed() {
     paidAmount: 0,
     remainingAmount: math1.totalRepaymentAmount,
     status: 'APPLIED',
-    salarySlipUrl: '/uploads/sample_salary_slip.pdf',
+    salarySlipUrl: priyaPdfUrl,
     salarySlipOriginalName: 'Priya_Salary_Slip_July.pdf',
   });
   await loan1.save();
 
+  const rahulPdfUrl = createPersonalizedPdf('Rahul Verma', 90000, 'Rahul_Salary_Slip.pdf');
   const math2 = calculateLoanMath(250000, 365, 12);
   const loan2 = new Loan({
     borrowerId: createdUsers['rahul@example.com']._id,
@@ -151,13 +154,14 @@ export async function runSeed() {
     paidAmount: 0,
     remainingAmount: math2.totalRepaymentAmount,
     status: 'SANCTIONED',
-    salarySlipUrl: '/uploads/sample_salary_slip.pdf',
+    salarySlipUrl: rahulPdfUrl,
     salarySlipOriginalName: 'Rahul_Salary_Slip.pdf',
     sanctionedBy: createdUsers['sanction@lms.com']._id,
     sanctionedAt: new Date(Date.now() - 86400000 * 2),
   });
   await loan2.save();
 
+  const amitPdfUrl = createPersonalizedPdf('Amit Patel', 120000, 'Amit_Salary_Slip.pdf');
   const math3 = calculateLoanMath(100000, 90, 12);
   const loan3 = new Loan({
     borrowerId: createdUsers['amit@example.com']._id,
@@ -169,7 +173,7 @@ export async function runSeed() {
     paidAmount: 25000,
     remainingAmount: math3.totalRepaymentAmount - 25000,
     status: 'DISBURSED',
-    salarySlipUrl: '/uploads/sample_salary_slip.pdf',
+    salarySlipUrl: amitPdfUrl,
     salarySlipOriginalName: 'Amit_Salary_Slip.pdf',
     sanctionedBy: createdUsers['sanction@lms.com']._id,
     sanctionedAt: new Date(Date.now() - 86400000 * 10),

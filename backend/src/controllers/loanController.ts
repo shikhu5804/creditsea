@@ -6,7 +6,7 @@ import User from '../models/User';
 import Payment from '../models/Payment';
 import { AuthRequest } from '../middleware/auth';
 import { calculateLoanMath } from '../services/breService';
-import { ensureUploadsDirectory } from '../utils/initUploads';
+import { ensureUploadsDirectory, createPersonalizedPdf } from '../utils/initUploads';
 
 export async function uploadSalarySlipHandler(req: AuthRequest, res: Response) {
   try {
@@ -77,6 +77,15 @@ export async function applyLoanHandler(req: AuthRequest, res: Response) {
     const interestRate = 12.0; // 12% p.a.
     const { interestAmount, totalRepaymentAmount } = calculateLoanMath(loanAmount, tenure, interestRate);
 
+    let finalSalarySlipUrl = salarySlipUrl;
+    let finalSalarySlipName = salarySlipOriginalName || `${user.name.replace(/\s+/g, '_')}_Salary_Slip.pdf`;
+
+    if (!finalSalarySlipUrl || finalSalarySlipUrl === '/uploads/sample_salary_slip.pdf') {
+      const filename = `${user.name.replace(/\s+/g, '_')}_Salary_Slip_${Date.now()}.pdf`;
+      finalSalarySlipUrl = createPersonalizedPdf(user.name, user.monthlySalary || 75000, filename);
+      finalSalarySlipName = `${user.name.split(' ')[0]}_Salary_Slip.pdf`;
+    }
+
     const newLoan = new Loan({
       borrowerId: user._id,
       amount: loanAmount,
@@ -87,8 +96,8 @@ export async function applyLoanHandler(req: AuthRequest, res: Response) {
       paidAmount: 0,
       remainingAmount: totalRepaymentAmount,
       status: 'APPLIED',
-      salarySlipUrl,
-      salarySlipOriginalName: salarySlipOriginalName || 'Salary_Slip',
+      salarySlipUrl: finalSalarySlipUrl,
+      salarySlipOriginalName: finalSalarySlipName,
     });
 
     await newLoan.save();
