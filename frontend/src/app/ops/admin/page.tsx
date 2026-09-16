@@ -154,17 +154,17 @@ export default function AdminDashboardPage() {
       </div>
 
       {/* Admin Module Tabs */}
-      <div className="flex bg-gray-100 p-1.5 rounded-2xl border border-gray-200 mb-6">
-        <button onClick={() => setActiveTab('sales')} className={`flex-1 py-2.5 rounded-xl font-bold text-xs transition ${activeTab === 'sales' ? 'bg-black text-white shadow' : 'text-gray-600 hover:text-black'}`}>Sales Leads ({salesLeads.length})</button>
-        <button onClick={() => setActiveTab('sanction')} className={`flex-1 py-2.5 rounded-xl font-bold text-xs transition ${activeTab === 'sanction' ? 'bg-black text-white shadow' : 'text-gray-600 hover:text-black'}`}>Sanction Queue ({sanctionLoans.length})</button>
-        <button onClick={() => setActiveTab('disbursement')} className={`flex-1 py-2.5 rounded-xl font-bold text-xs transition ${activeTab === 'disbursement' ? 'bg-black text-white shadow' : 'text-gray-600 hover:text-black'}`}>Disbursement ({disbursementLoans.length})</button>
-        <button onClick={() => setActiveTab('collection')} className={`flex-1 py-2.5 rounded-xl font-bold text-xs transition ${activeTab === 'collection' ? 'bg-black text-white shadow' : 'text-gray-600 hover:text-black'}`}>Collection ({collectionLoans.length})</button>
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 bg-gray-100 p-1.5 rounded-2xl border border-gray-200 mb-6">
+        <button onClick={() => setActiveTab('sales')} className={`py-2.5 rounded-xl font-bold text-xs transition ${activeTab === 'sales' ? 'bg-black text-white shadow' : 'text-gray-600 hover:text-black'}`}>Sales ({salesLeads.length})</button>
+        <button onClick={() => setActiveTab('sanction')} className={`py-2.5 rounded-xl font-bold text-xs transition ${activeTab === 'sanction' ? 'bg-black text-white shadow' : 'text-gray-600 hover:text-black'}`}>Sanction ({sanctionLoans.length})</button>
+        <button onClick={() => setActiveTab('disbursement')} className={`py-2.5 rounded-xl font-bold text-xs transition ${activeTab === 'disbursement' ? 'bg-black text-white shadow' : 'text-gray-600 hover:text-black'}`}>Disburse ({disbursementLoans.length})</button>
+        <button onClick={() => setActiveTab('collection')} className={`py-2.5 rounded-xl font-bold text-xs transition ${activeTab === 'collection' ? 'bg-black text-white shadow' : 'text-gray-600 hover:text-black'}`}>Collection ({collectionLoans.length})</button>
       </div>
 
       {/* Views */}
       {activeTab === 'sales' && (
-        <div className="bg-white rounded-2xl border border-gray-200 overflow-hidden">
-          <table className="w-full text-left text-xs text-gray-700">
+        <div className="bg-white rounded-2xl border border-gray-200 overflow-x-auto">
+          <table className="w-full min-w-[600px] text-left text-xs text-gray-700">
             <thead className="bg-gray-100 text-gray-500 font-extrabold uppercase tracking-wider border-b border-gray-200">
               <tr>
                 <th className="p-4">Borrower</th>
@@ -227,8 +227,8 @@ export default function AdminDashboardPage() {
       )}
 
       {activeTab === 'collection' && (
-        <div className="bg-white rounded-2xl border border-gray-200 overflow-hidden">
-          <table className="w-full text-left text-xs text-gray-700">
+        <div className="bg-white rounded-2xl border border-gray-200 overflow-x-auto">
+          <table className="w-full min-w-[600px] text-left text-xs text-gray-700">
             <thead className="bg-gray-100 text-gray-500 font-extrabold uppercase tracking-wider border-b border-gray-200">
               <tr>
                 <th className="p-4">Borrower</th>

@@ -190,34 +190,37 @@ function BorrowerApplyContent() {
 
       {/* Exactly 3-Step Wizard Stepper Header */}
       <div className="bg-gray-50 p-2 rounded-2xl mb-8 border border-gray-100">
-        <div className="grid grid-cols-3 gap-2 text-center text-xs font-bold">
+        <div className="grid grid-cols-3 gap-1.5 sm:gap-2 text-center text-xs font-bold">
           <button
             onClick={() => setCurrentStep(1)}
-            className={`py-3 px-4 rounded-xl transition ${
+            className={`py-2.5 sm:py-3 px-2 sm:px-4 rounded-xl transition ${
               currentStep === 1 ? 'bg-black text-white shadow-md' : 'text-gray-500 hover:text-black hover:bg-gray-100'
             }`}
           >
-            Step 1: Personal Details & BRE
+            <span className="hidden sm:inline">Step 1: Personal Details & BRE</span>
+            <span className="sm:hidden">1. BRE Check</span>
           </button>
 
           <button
             onClick={() => user.isBreEligible && setCurrentStep(2)}
             disabled={!user.isBreEligible}
-            className={`py-3 px-4 rounded-xl transition ${
+            className={`py-2.5 sm:py-3 px-2 sm:px-4 rounded-xl transition ${
               !user.isBreEligible ? 'opacity-40 cursor-not-allowed text-gray-400' : currentStep === 2 ? 'bg-black text-white shadow-md' : 'text-gray-500 hover:text-black hover:bg-gray-100'
             }`}
           >
-            Step 2: Upload Salary Slip
+            <span className="hidden sm:inline">Step 2: Upload Salary Slip</span>
+            <span className="sm:hidden">2. Salary Slip</span>
           </button>
 
           <button
             onClick={() => user.isBreEligible && setCurrentStep(3)}
             disabled={!user.isBreEligible}
-            className={`py-3 px-4 rounded-xl transition ${
+            className={`py-2.5 sm:py-3 px-2 sm:px-4 rounded-xl transition ${
               !user.isBreEligible ? 'opacity-40 cursor-not-allowed text-gray-400' : currentStep === 3 ? 'bg-black text-white shadow-md' : 'text-gray-500 hover:text-black hover:bg-gray-100'
             }`}
           >
-            Step 3: Loan Config & Apply
+            <span className="hidden sm:inline">Step 3: Loan Config & Apply</span>
+            <span className="sm:hidden">3. Apply</span>
           </button>
         </div>
       </div>

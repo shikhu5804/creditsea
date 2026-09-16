@@ -43,7 +43,13 @@ export function getFileUrl(pathStr?: string): string {
   if (!pathStr) return '#';
   if (pathStr.startsWith('http://') || pathStr.startsWith('https://')) return pathStr;
 
-  const currentBase = api.defaults.baseURL || process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5001/api';
+  let currentBase = api.defaults.baseURL || process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5001/api';
+
+  // Fallback port fix: macOS ControlCenter occupies port 5000, so Express runs on port 5001
+  if (currentBase.includes(':5000')) {
+    currentBase = currentBase.replace(':5000', ':5001');
+  }
+
   const origin = currentBase.replace(/\/api\/?.*$/, '');
   const cleanPath = pathStr.startsWith('/') ? pathStr : `/${pathStr}`;
   return `${origin}${cleanPath}`;
