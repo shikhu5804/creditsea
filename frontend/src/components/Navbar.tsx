@@ -3,7 +3,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { useAuth, UserRole } from '../lib/authContext';
-import { LogOut, Shield, FileText, Users, ShieldCheck, Send, CreditCard } from 'lucide-react';
+import { LogOut, Shield, FileText, Users, ShieldCheck, Send, CreditCard, Waves } from 'lucide-react';
 
 export const Navbar: React.FC = () => {
   const { user, logout } = useAuth();
@@ -35,16 +35,12 @@ export const Navbar: React.FC = () => {
       <div className="max-w-7xl mx-auto flex items-center justify-between">
         {/* Brand Logo - Navigates to Home / Route */}
         <Link href="/" className="flex items-center space-x-2.5 group">
-          <div className="w-8 h-8 rounded-full bg-black text-[#00e676] flex items-center justify-center shadow-sm group-hover:scale-105 transition-transform">
-            <svg className="w-5 h-5" viewBox="0 0 32 32" fill="none">
-              <circle cx="16" cy="16" r="10" stroke="#00e676" strokeWidth="2.5"/>
-              <path d="M10 16c2-2.5 4-2.5 6 0s4 2.5 6 0" stroke="#00e676" strokeWidth="2.5" strokeLinecap="round"/>
-            </svg>
+          <div className="w-8 h-8 rounded-xl bg-black text-[#00e676] flex items-center justify-center shadow-sm group-hover:bg-gray-800 transition">
+            <Waves className="w-4 h-4 text-[#00e676]" />
           </div>
           <span className="text-2xl font-black tracking-tight text-gray-900 font-display">
             creditsea
           </span>
-          <span className="w-2.5 h-2.5 rounded-full bg-[#00e676] inline-block animate-pulse"></span>
         </Link>
 
         {/* Right Navigation Controls */}
