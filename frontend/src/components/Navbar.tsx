@@ -33,8 +33,14 @@ export const Navbar: React.FC = () => {
   return (
     <header className="w-full bg-white border-b border-gray-100 py-4 px-6 sm:px-12 sticky top-0 z-50">
       <div className="max-w-7xl mx-auto flex items-center justify-between">
-        {/* Brand Logo matching image design */}
-        <Link href={user ? (user.role === 'BORROWER' ? '/borrower' : `/ops/${user.role.toLowerCase()}`) : '/'} className="flex items-center space-x-2 group">
+        {/* Brand Logo - Navigates to Home / Route */}
+        <Link href="/" className="flex items-center space-x-2.5 group">
+          <div className="w-8 h-8 rounded-full bg-black text-[#00e676] flex items-center justify-center shadow-sm group-hover:scale-105 transition-transform">
+            <svg className="w-5 h-5" viewBox="0 0 32 32" fill="none">
+              <circle cx="16" cy="16" r="10" stroke="#00e676" strokeWidth="2.5"/>
+              <path d="M10 16c2-2.5 4-2.5 6 0s4 2.5 6 0" stroke="#00e676" strokeWidth="2.5" strokeLinecap="round"/>
+            </svg>
+          </div>
           <span className="text-2xl font-black tracking-tight text-gray-900 font-display">
             creditsea
           </span>
