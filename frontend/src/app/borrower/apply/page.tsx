@@ -533,11 +533,11 @@ function BorrowerApplyContent() {
                   <span className="font-bold text-gray-900">₹{interestAmount.toLocaleString('en-IN')}</span>
                 </div>
 
-                <div className="p-4 rounded-2xl bg-[#00e676] text-black shadow-md mt-4 border border-[#00c853]/20">
-                  <div className="text-[10px] font-extrabold text-black/75 uppercase tracking-wider mb-1">
+                <div className="p-4 rounded-2xl bg-emerald-50 border border-emerald-200/80 text-emerald-950 shadow-sm mt-4">
+                  <div className="text-[10px] font-extrabold text-emerald-800 uppercase tracking-wider mb-1">
                     TOTAL AMOUNT PAYABLE
                   </div>
-                  <div className="text-3xl font-black font-display text-black">
+                  <div className="text-3xl font-black font-display text-emerald-950">
                     ₹{totalRepaymentAmount.toLocaleString('en-IN')}
                   </div>
                 </div>
