@@ -215,5 +215,34 @@ To record a complete end-to-end walkthrough video:
 
 ---
 
+## 🌐 Production Deployment Guide
+
+### Option A: Free Production Hosting (Vercel + Render + MongoDB Atlas)
+
+#### 1. MongoDB Atlas (Cloud Database)
+1. Create a free cluster on [MongoDB Atlas](https://www.mongodb.com/cloud/atlas).
+2. Create a database user and allow network access (`0.0.0.0/0`).
+3. Copy your MongoDB URI string: `mongodb+srv://<username>:<password>@cluster0.mongodb.net/creditsea?retryWrites=true&w=majority`
+
+#### 2. Backend Deployment (Render.com)
+1. Connect your GitHub repository to [Render.com](https://render.com).
+2. Create a new **Web Service**:
+   * **Root Directory**: `backend`
+   * **Build Command**: `npm install && npm run build`
+   * **Start Command**: `npm start`
+3. Add Environment Variables on Render:
+   * `MONGODB_URI`: `<Your MongoDB Atlas URI>`
+   * `JWT_SECRET`: `<Your Random Secret Key>`
+   * `NODE_ENV`: `production`
+
+#### 3. Frontend Deployment (Vercel)
+1. Import your GitHub repository into [Vercel](https://vercel.com).
+2. Set **Root Directory** to `frontend`.
+3. Add Environment Variable on Vercel:
+   * `NEXT_PUBLIC_API_URL`: `https://<your-render-backend-url>.onrender.com/api`
+4. Click **Deploy**.
+
+---
+
 ## 📄 License
 This project is licensed under the **MIT License**.
