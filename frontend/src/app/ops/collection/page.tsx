@@ -18,7 +18,7 @@ export default function CollectionWorkspacePage() {
 
   const [payLoanId, setPayLoanId] = useState<string>('');
   const [utrNumber, setUtrNumber] = useState<string>('');
-  const [payAmount, setPayAmount] = useState<number>(0);
+  const [payAmount, setPayAmount] = useState<number | string>(0);
   const [payDate, setPayDate] = useState<string>(new Date().toISOString().split('T')[0]);
   const [payHistory, setPayHistory] = useState<any[]>([]);
   const [actionLoading, setActionLoading] = useState<boolean>(false);
@@ -67,7 +67,8 @@ export default function CollectionWorkspacePage() {
 
   const handleRecordPayment = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!payLoanId || !utrNumber || payAmount <= 0) {
+    const numericAmount = Number(payAmount);
+    if (!payLoanId || !utrNumber || isNaN(numericAmount) || numericAmount <= 0) {
       setMessage({ type: 'error', text: 'Please select loan, enter unique UTR, and valid payment amount.' });
       return;
     }
@@ -78,7 +79,7 @@ export default function CollectionWorkspacePage() {
       const res = await api.post('/ops/collection/payments', {
         loanId: payLoanId,
         utrNumber,
-        amount: payAmount,
+        amount: numericAmount,
         paymentDate: payDate,
       });
 
@@ -230,9 +231,10 @@ export default function CollectionWorkspacePage() {
                 <input
                   type="number"
                   required
-                  min={1}
+                  step="any"
+                  min="0.01"
                   value={payAmount}
-                  onChange={(e) => setPayAmount(Number(e.target.value))}
+                  onChange={(e) => setPayAmount(e.target.value)}
                   className="w-full px-3 py-3 clean-input text-xs"
                 />
               </div>
