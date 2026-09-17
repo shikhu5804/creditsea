@@ -12,8 +12,7 @@ const app = express();
 const DEFAULT_PORT = parseInt(process.env.PORT || '5000', 10);
 
 // Middleware
-const clientUrl = process.env.CLIENT_URL || 'http://localhost:3000';
-app.use(cors({ origin: [clientUrl, 'http://localhost:3000', 'http://127.0.0.1:3000', 'http://localhost:5000', 'http://localhost:5001'], credentials: true }));
+app.use(cors({ origin: true, credentials: true }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
