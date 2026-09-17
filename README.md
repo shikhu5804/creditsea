@@ -34,21 +34,21 @@ An enterprise-grade, full-stack Loan Management System built with **Next.js 14 (
 
 ```mermaid
 flowchart TD
-    subgraph Borrower Flow
-        A[Login / Register] --> B[Step 1: Personal Details & BRE Check]
-        B -->|BRE Passed| C[Step 2: Upload Salary Slip]
-        B -->|BRE Failed| Fail[Application Blocked]
-        C --> D[Step 3: Loan Config & Apply]
-        D -->|Submit Loan| E[/borrower/loans - My Loans Dashboard]
+    subgraph BorrowerFlow["Borrower Flow"]
+        A["Login / Register"] --> B["Step 1: Personal Details & BRE Check"]
+        B -->|BRE Passed| C["Step 2: Upload Salary Slip"]
+        B -->|BRE Failed| Fail["Application Blocked"]
+        C --> D["Step 3: Loan Config & Apply"]
+        D -->|Submit Loan| E["My Loans Dashboard (/borrower/loans)"]
     end
 
-    subgraph Operations Lifecycle
-        E -->|Status: APPLIED| Sales[Sales Workspace: Verify Applicant]
-        Sales -->|Status: APPLIED| Sanction[Sanction Workspace: Approve/Reject]
-        Sanction -->|Status: SANCTIONED| Disb[Disbursement Workspace: Release Funds]
-        Sanction -->|Rejected| Rej[Status: REJECTED]
-        Disb -->|Status: DISBURSED| Coll[Collection Workspace: Record Payments]
-        Coll -->|Balance = 0| Closed[Status: CLOSED]
+    subgraph OpsFlow["Operations Lifecycle"]
+        E -->|Status: APPLIED| Sales["Sales Workspace: Verify Applicant"]
+        Sales -->|Status: APPLIED| Sanction["Sanction Workspace: Approve/Reject"]
+        Sanction -->|Status: SANCTIONED| Disb["Disbursement Workspace: Release Funds"]
+        Sanction -->|Rejected| Rej["Status: REJECTED"]
+        Disb -->|Status: DISBURSED| Coll["Collection Workspace: Record Payments"]
+        Coll -->|Balance = 0| Closed["Status: CLOSED"]
     end
 ```
 
