@@ -5,7 +5,7 @@ import { useAuth } from '../../../lib/authContext';
 import { useRouter } from 'next/navigation';
 import { api } from '../../../lib/api';
 import { StatusBadge } from '../../../components/StatusBadge';
-import { CreditCard, DollarSign, RefreshCw, AlertCircle, CheckCircle2 } from 'lucide-react';
+import { CreditCard, IndianRupee, RefreshCw, AlertCircle, CheckCircle2 } from 'lucide-react';
 
 export default function CollectionWorkspacePage() {
   const { user, isLoading } = useAuth();
@@ -186,7 +186,7 @@ export default function CollectionWorkspacePage() {
         {/* Payment Entry Form */}
         <div className="lg:col-span-5 bg-gray-50 p-6 rounded-3xl border border-gray-200 space-y-6">
           <h3 className="text-lg font-black text-gray-900 font-display flex items-center space-x-2">
-            <DollarSign className="w-5 h-5 text-gray-900" />
+            <IndianRupee className="w-5 h-5 text-gray-900" />
             <span>Record Payment Entry</span>
           </h3>
 
