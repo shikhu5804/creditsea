@@ -66,7 +66,7 @@ async function startServer() {
 
   try {
     console.log('Connecting to MongoDB Cloud Atlas / URI...');
-    await mongoose.connect(mongoUri, { serverSelectionTimeoutMS: 4000 });
+    await mongoose.connect(mongoUri, { serverSelectionTimeoutMS: 4000 } as any);
     console.log('✅ Connected to MongoDB Cloud Atlas database successfully!');
   } catch (err: any) {
     console.warn(`⚠️ Cloud MongoDB connection attempt (${err.message}). Launching automated MongoDB Memory Server...`);

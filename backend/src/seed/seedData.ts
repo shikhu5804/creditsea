@@ -14,7 +14,7 @@ export async function runSeed() {
 
   if (mongoose.connection.readyState === 0) {
     try {
-      await mongoose.connect(mongoUri, { serverSelectionTimeoutMS: 2000 });
+      await mongoose.connect(mongoUri, { serverSelectionTimeoutMS: 2000 } as any);
     } catch (err) {
       console.log('⚠️ Connecting to MongoMemoryServer for seed...');
       const mongod = await MongoMemoryServer.create({ instance: { port: 27017, dbName: 'creditsea' } });
